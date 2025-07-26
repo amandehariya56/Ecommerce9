@@ -248,7 +248,7 @@ const Cart = () => {
             <p className="text-gray-600 mb-6">Looks like you haven't added anything to your cart yet</p>
             <Link
               to="/"
-              className="inline-flex items-center bg-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors"
+              className="inline-flex items-center bg-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors"
             >
               <FaShoppingCart className="mr-2" />
               Start Shopping
