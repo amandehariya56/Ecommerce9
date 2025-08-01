@@ -352,7 +352,7 @@ const ProductDetails = () => {
             <div className="flex items-center gap-2">
               <span className={`w-3 h-3 rounded-full ${product.stock_quantity > 0 ? 'bg-green-500' : 'bg-red-500'}`}></span>
               <span className={`font-medium ${product.stock_quantity > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {product.stock_quantity > 0 ? `${product.stock_quantity} units in stock` : 'Out of stock'}
+                {product.stock_quantity > 0 ? `${product.stock_quantity} units in stock` : ''}
               </span>
             </div>
 
@@ -394,7 +394,7 @@ const ProductDetails = () => {
                 ) : (
                   <FaShoppingCart />
                 )}
-                {product.stock_quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                {product.stock_quantity === 0 ? '' : 'Add to Cart'}
               </motion.button>
 
               <motion.button
@@ -409,7 +409,7 @@ const ProductDetails = () => {
                 ) : (
                   <BsLightningCharge />
                 )}
-                {product.stock_quantity === 0 ? 'Out of Stock' : 'Buy Now'}
+                {product.stock_quantity === 0 ? '' : 'Buy Now'}
               </motion.button>
 
               <motion.button

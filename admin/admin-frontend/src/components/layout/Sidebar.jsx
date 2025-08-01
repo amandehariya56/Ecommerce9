@@ -81,6 +81,12 @@ export default function Sidebar() {
           description: "Manage Users"
         },
         {
+          to: "/customers",
+          icon: <UserCheck size={20} />,
+          label: "Customer Management",
+          description: "Manage Customers"
+        },
+        {
           to: "/roles",
           icon: <ShieldCheck size={20} />,
           label: "Roles",
@@ -112,9 +118,9 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-64 h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 text-white flex flex-col justify-between fixed left-0 top-0 shadow-2xl border-r border-purple-700/30">
+    <div className="w-64 h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 text-white flex flex-col fixed left-0 top-0 shadow-2xl border-r border-purple-700/30 overflow-hidden">
       {/* Header with Beautiful Logo */}
-      <div>
+      <div className="flex-1 overflow-y-auto">
         <div className="flex items-center gap-3 px-6 py-6 border-b border-purple-700/30">
           <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
             <Store size={24} className="text-white" />
@@ -128,7 +134,7 @@ export default function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="mt-6 px-4 space-y-6">
+        <nav className="mt-6 px-4 space-y-6 pb-4">
           {navigationItems.map((section, sectionIndex) => (
             <div key={sectionIndex}>
               <h3 className="text-xs font-semibold text-purple-300 uppercase tracking-wider mb-3 px-2">
@@ -149,35 +155,6 @@ export default function Sidebar() {
             </div>
           ))}
         </nav>
-      </div>
-
-      {/* Footer - User Profile */}
-      <div className="px-4 pb-6">
-        <div className="bg-purple-800/30 rounded-xl p-4 border border-purple-700/30">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">
-                {user?.name?.charAt(0) || user?.email?.charAt(0) || 'A'}
-              </span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h4 className="text-sm font-semibold text-white truncate">
-                {user?.name || user?.email || 'Admin User'}
-              </h4>
-              <p className="text-xs text-purple-300 truncate">
-                {user?.email || 'admin@shophub.com'}
-              </p>
-            </div>
-          </div>
-          
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 text-sm text-red-300 hover:text-red-100 hover:bg-red-500/20 px-3 py-2 rounded-lg transition-colors"
-          >
-            <LogOut size={16} />
-            Logout
-          </button>
-        </div>
       </div>
     </div>
   );

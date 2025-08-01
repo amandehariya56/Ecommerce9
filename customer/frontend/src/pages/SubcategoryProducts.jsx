@@ -14,8 +14,8 @@ const SubcategoryProducts = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5000/api/products/subcategory/${id}`);
-        setProducts(res.data.data || []);
+        const res = await axios.get(`http://localhost:5001/api/products/subcategory/${id}`);
+        setProducts(res.data.data?.products || []);
       } catch (err) {
         setError('Failed to load products');
       } finally {

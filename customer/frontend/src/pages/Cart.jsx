@@ -271,9 +271,18 @@ const Cart = () => {
                     {/* Product Image */}
                     <div className="flex-shrink-0">
                       <img
-                        src={item.image || item.images?.[0] || "https://via.placeholder.com/120x120?text=No+Image"}
-                        alt={item.name}
+                        src={
+                          item.images && Array.isArray(item.images) 
+                            ? item.images[0] 
+                            : item.images && typeof item.images === 'string'
+                            ? JSON.parse(item.images)[0] || "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik02MCA0NUw3NSA2MEg0NUw2MCA0NVoiIGZpbGw9IiM5Q0EzQUYiLz4KPHN2Zz4K"
+                            : item.image || "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik02MCA0NUw3NSA2MEg0NUw2MCA0NVoiIGZpbGw9IiM5Q0EzQUYiLz4KPHN2Zz4K"
+                        }
+                        alt={item.name || item.product_name}
                         className="w-24 h-24 object-cover rounded-lg border"
+                        onError={(e) => {
+                          e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik02MCA0NUw3NSA2MEg0NUw2MCA0NVoiIGZpbGw9IiM5Q0EzQUYiLz4KPHN2Zz4K";
+                        }}
                       />
                     </div>
 

@@ -11,6 +11,7 @@ import CategoryPage from "../pages/CategoryPage";
 import SubcategoryPage from "../pages/SubcategoryPage";
 import ProductPage from "../pages/ProductPage";
 import UserPage from "../pages/UserPage";
+import CustomerManagementPage from "../pages/CustomerManagementPage";
 import RolePage from "../pages/RolePage";
 import OrderPage from "../pages/OrderPage";
 import Logout from "../pages/logout";
@@ -68,6 +69,7 @@ const AppRoutes = () => {
         <Route path="subcategories" element={<SubcategoryPage />} />
         <Route path="products" element={<ProductPage />} />
         <Route path="users" element={<UserPage />} />
+        <Route path="customers" element={<CustomerManagementPage />} />
         <Route path="roles" element={<RolePage />} />
         <Route path="orders" element={<OrderPage />} />
       </Route>

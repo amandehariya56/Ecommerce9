@@ -11,6 +11,7 @@ import {
   FaMapMarkerAlt
 } from 'react-icons/fa';
 import orderService from '../services/orderService';
+import api from '../services/api';
 import Swal from 'sweetalert2';
 import PaymentButton from '../components/ui/PaymentButton';
 
@@ -82,6 +83,130 @@ const Payment = () => {
 
   const handleGoBack = () => {
     navigate('/checkout');
+  };
+
+  // Handle online payment with Razorpay
+  const handleOnlinePayment = async () => {
+    if (!orderData) return;
+
+    setPlacing(true);
+    try {
+      // First place the order
+      const finalOrderData = {
+        ...orderData,
+        payment_method: 'online'
+      };
+
+      // Remove cart and total from order data (not needed for API)
+      delete finalOrderData.cart;
+      delete finalOrderData.total;
+
+      const orderResponse = await orderService.placeOrder(finalOrderData);
+      
+      if (orderResponse.success) {
+        console.log('🔍 Order Response:', orderResponse);
+        console.log('🔍 Order Response Data:', orderResponse.data);
+        
+        // Backend returns 'orderId' not 'id'
+        const orderId = orderResponse.data.orderId;
+        console.log('🔍 Extracted Order ID:', orderId);
+        
+        if (!orderId) {
+          throw new Error('Order ID not found in response');
+        }
+        
+        // Create Razorpay order
+        console.log('🔥 Creating payment with:', { amount: orderData.total, order_id: orderId });
+        const { data } = await api.post('/payments/create-order', { 
+          amount: orderData.total, 
+          order_id: orderId
+        });
+        
+        const order = data.order;
+
+        // Razorpay options
+        const options = {
+          key: data.key,
+          amount: order.amount,
+          currency: order.currency,
+          order_id: order.id,
+          name: 'Your Store Name',
+          description: `Order #${orderId}`,
+          handler: async function (response) {
+            try {
+              // Verify payment with backend
+              const verifyData = await api.post('/payments/verify', {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                order_id: orderId
+              });
+              
+              if (verifyData.data.success) {
+                // Clear pending order from localStorage
+                localStorage.removeItem('pendingOrder');
+                
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Payment Successful!',
+                  text: `Your order #${orderId} has been placed and paid`,
+                  confirmButtonColor: '#ec4899',
+                  confirmButtonText: 'View Orders'
+                }).then(() => {
+                  navigate('/orders');
+                });
+              } else {
+                throw new Error('Payment verification failed');
+              }
+            } catch (error) {
+              console.error('Payment verification error:', error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Payment Verification Failed',
+                text: 'Please contact support if amount was deducted'
+              });
+            }
+          },
+          prefill: {
+            name: 'Customer Name',
+            email: 'customer@example.com',
+            contact: '9999999999'
+          },
+          theme: {
+            color: '#ec4899'
+          },
+          modal: {
+            ondismiss: function() {
+              setPlacing(false);
+            }
+          }
+        };
+
+        // Load Razorpay script if not already loaded
+        if (!window.Razorpay) {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.async = true;
+          document.body.appendChild(script);
+          
+          script.onload = () => {
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+          };
+        } else {
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+        }
+      }
+    } catch (error) {
+      console.error('Error in online payment:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Payment Failed',
+        text: error.response?.data?.message || 'Failed to process payment'
+      });
+      setPlacing(false);
+    }
   };
 
   if (!orderData) {
@@ -170,7 +295,23 @@ const Payment = () => {
               {/* Place Order Button */}
               <div className="mt-8">
                 {paymentMethod === 'online' ? (
-                  <PaymentButton amount={orderData.total} />
+                  <button
+                    onClick={handleOnlinePayment}
+                    disabled={placing}
+                    className="w-full bg-blue-500 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                  >
+                    {placing ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                        <span>Processing Payment...</span>
+                      </>
+                    ) : (
+                      <>
+                        <FaCreditCard />
+                        <span>Pay ₹{orderData.total} Online</span>
+                      </>
+                    )}
+                  </button>
                 ) : (
                   <button
                     onClick={handlePlaceOrder}

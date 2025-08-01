@@ -8,7 +8,6 @@ import { getAllProducts } from "../services/productService";
 import { getAllUsers } from "../services/userService";
 import { getAllRoles } from "../services/roleService";
 import { getAllAssignedRoles } from "../services/roleAssignService";
-import OrderStats from "../components/OrderStats";
 
 const COLORS = ["#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#FF6666", "#33CCFF"];
 
@@ -148,8 +147,7 @@ const Dashboard = () => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      {/* Order Statistics */}
-      <OrderStats />
+
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Ecommerce Admin Dashboard</h1>
         <button 

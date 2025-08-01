@@ -1,12 +1,12 @@
 import axios from '../utils/axiosInstance';
 
-const SUBCATEGORY_API_BASE_URL = 'http://localhost:5001/api/products/subcategories';
+const SUBCATEGORY_API_BASE_URL = 'http://localhost:5001/api/products';
 
 export const subcategoryService = {
   // Get all subcategories
   getAllSubcategories: async () => {
     try {
-      const response = await axios.get(`${SUBCATEGORY_API_BASE_URL}/all`);
+      const response = await axios.get(`${SUBCATEGORY_API_BASE_URL}/subcategories/all`);
       return response.data;
     } catch (error) {
       console.error('Error fetching subcategories:', error);
@@ -17,7 +17,7 @@ export const subcategoryService = {
   // Get subcategories by category ID
   getSubcategoriesByCategory: async (categoryId) => {
     try {
-      const response = await axios.get(`${SUBCATEGORY_API_BASE_URL}/category/${categoryId}`);
+      const response = await axios.get(`${SUBCATEGORY_API_BASE_URL}/categories/${categoryId}/subcategories`);
       return response.data;
     } catch (error) {
       console.error('Error fetching subcategories by category:', error);
@@ -28,7 +28,7 @@ export const subcategoryService = {
   // Get subcategory by ID
   getSubcategoryById: async (id) => {
     try {
-      const response = await axios.get(`${SUBCATEGORY_API_BASE_URL}/${id}`);
+      const response = await axios.get(`${SUBCATEGORY_API_BASE_URL}/subcategories/${id}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching subcategory:', error);
