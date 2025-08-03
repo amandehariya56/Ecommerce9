@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 import Layout from "../components/layout/layout";
-import Protected from "../utils/protected";
+import Protected from "../utils/Protected";
 
 import LoginPage from "../pages/LoginPage";
 import Dashboard from "../pages/Dashboard";
