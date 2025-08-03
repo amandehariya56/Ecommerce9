@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 import Layout from "../components/layout/layout";
-import Protected from "../utils/Protected";
+import Protected from "../utils/Protected"; // Make sure file name matches this import
 
 import LoginPage from "../pages/LoginPage";
 import Dashboard from "../pages/Dashboard";
@@ -32,19 +32,14 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      {/* Default route - redirect to login if not authenticated */}
       <Route
         path="/"
         element={user ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />}
       />
-
-      {/* Login route */}
       <Route
         path="/login"
         element={!user ? <LoginPage /> : <Navigate to="/dashboard" replace />}
       />
-
-      {/* Logout route - outside nested structure */}
       <Route
         path="/logout"
         element={
@@ -53,8 +48,6 @@ const AppRoutes = () => {
           </Protected>
         }
       />
-
-      {/* Protected routes - only accessible when logged in */}
       <Route
         path="/"
         element={
@@ -73,8 +66,6 @@ const AppRoutes = () => {
         <Route path="roles" element={<RolePage />} />
         <Route path="orders" element={<OrderPage />} />
       </Route>
-
-      {/* Catch all route */}
       <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} replace />} />
     </Routes>
   );
