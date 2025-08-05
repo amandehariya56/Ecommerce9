@@ -17,6 +17,7 @@ import { BsLightningCharge } from 'react-icons/bs';
 
 const Footer = () => {
   return (
+    
     <footer className="bg-gradient-to-br from-pink-50 to-purple-50 border-t border-pink-100">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-12">
