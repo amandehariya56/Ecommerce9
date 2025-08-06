@@ -1,6 +1,6 @@
 import axios from '../utils/axiosInstance';
 
-const CATEGORY_API_BASE_URL = 'http://localhost:5001/api/products';
+const CATEGORY_API_BASE_URL = import.meta.env.VITE_API_BASE_URL+'/api/products';
 
 export const categoryService = {
   // Get all categories

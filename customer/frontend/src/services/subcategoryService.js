@@ -1,6 +1,6 @@
 import axios from '../utils/axiosInstance';
 
-const SUBCATEGORY_API_BASE_URL = 'http://localhost:5001/api/products';
+const SUBCATEGORY_API_BASE_URL = import.meta.env.VITE_API_BASE_URL+'/api/products';
 
 export const subcategoryService = {
   // Get all subcategories

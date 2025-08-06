@@ -14,7 +14,7 @@ const SubcategoryProducts = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5001/api/products/subcategory/${id}`);
+        const res = await axios.get(import.meta.env.VITE_API_BASE_URL+`/api/products/subcategory/${id}`);
         setProducts(res.data.data?.products || []);
       } catch (err) {
         setError('Failed to load products');
@@ -51,7 +51,7 @@ const SubcategoryProducts = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 mt-8">
-      <h2 className="text-2xl font-bold mb-6 text-pink-600 text-center">Products</h2>
+      <h2 cla5001ssName="text-2xl font-bold mb-6 text-pink-600 text-center">Products</h2>
 
       {products.length === 0 ? (
         <div className="text-center py-12">

@@ -54,7 +54,7 @@ const Home = () => {
       
       // Fetch products, categories, and subcategories in parallel
       const [productsResponse, categoriesResponse, subcategoriesResponse] = await Promise.all([
-        axios.get('http://localhost:5001/api/products'),
+        axios.get(import.meta.env.VITE_API_BASE_URL+'/api/products'),
         categoryService.getAllCategories(),
         subcategoryService.getAllSubcategories()
       ]);

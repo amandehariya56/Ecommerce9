@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: 'http://localhost:5001/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL+'/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken) {
-          const response = await axios.post('http://localhost:5001/api/customers/refresh', {
+          const response = await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/refresh', {
             refreshToken
           });
 

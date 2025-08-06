@@ -87,7 +87,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5001/api/customers/send-otp', {
+      const response = await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/send-otp', {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -144,7 +144,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5001/api/customers/verify-otp', {
+      const response = await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/verify-otp', {
         phone: formData.phone,
         otp: otp
       });
@@ -182,7 +182,7 @@ const Register = () => {
 
   const handleResendOTP = async () => {
     try {
-      const response = await axios.post('http://localhost:5001/api/customers/resend-otp', {
+      const response = await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/resend-otp', {
         phone: formData.phone
       });
 

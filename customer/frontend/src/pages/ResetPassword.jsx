@@ -25,7 +25,7 @@ const ResetPassword = () => {
     setError('');
     setSuccess('');
     try {
-      const res = await axios.post('http://localhost:5001/api/customers/request-reset-otp', {
+      const res = await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/request-reset-otp', {
         phone: phoneOrEmail,
         email: phoneOrEmail,
       });
@@ -58,7 +58,7 @@ const ResetPassword = () => {
     setError('');
     setSuccess('');
     try {
-      await axios.post('http://localhost:5001/api/customers/verify-reset-otp', {
+      await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/verify-reset-otp', {
         phone,
         otp,
       });
@@ -90,7 +90,7 @@ const ResetPassword = () => {
     setError('');
     setSuccess('');
     try {
-      await axios.post('http://localhost:5001/api/customers/reset-password', {
+      await axios.post(import.meta.env.VITE_API_BASE_URL+'/api/customers/reset-password', {
         phone,
         newPassword,
       });
