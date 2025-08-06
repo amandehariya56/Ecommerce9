@@ -90,7 +90,7 @@ app.use((error, req, res, next) => {
 });
 
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.DB_PORT || 5001;
 app.listen(PORT, () => {
   console.log(`🚀 Customer API Server running on port ${PORT}`);
   console.log(`📱 Environment: ${process.env.NODE_ENV || 'development'}`);
