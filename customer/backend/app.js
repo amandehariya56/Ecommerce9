@@ -62,6 +62,7 @@ app.get('/health', (req, res) => {
   });
 });
 
+
 // API routes
 app.use("/api/customers", customerRoutes);
 app.use("/api/products", productRoutes);
@@ -95,4 +96,5 @@ app.listen(PORT, () => {
   console.log(`🚀 Customer API Server running on port ${PORT}`);
   console.log(`📱 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🌐 CORS enabled for: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+  
 });
