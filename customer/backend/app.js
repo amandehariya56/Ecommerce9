@@ -48,6 +48,11 @@ app.use((req, res, next) => {
 // Apply general rate limiting
 app.use(generalLimiter);
 
+app.get('/', (req, res) => {
+  res.send('Customer Backend is running');
+ 
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({
@@ -83,6 +88,7 @@ app.use((error, req, res, next) => {
     ...(process.env.NODE_ENV === 'development' && { error: error.message })
   });
 });
+
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
